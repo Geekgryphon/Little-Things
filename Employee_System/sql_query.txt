@@ -1,0 +1,71 @@
+create database Employee_Database;
+
+create table EmployeeSeniority (
+    EP_NO varchar(50),
+    EmployeeKindID varchar(50),
+    On_Day datetime,
+    Off_Day datetime
+);
+
+
+create table LeaveForms (
+    EP_No varchar(50),
+    LeaveDay_Begin datetime,
+    LeaveDay_End datetime,
+    LeaveFormKindID int
+);
+
+create table LeaveForm_Kind (
+    LeaveFormKindID int,
+    KindName varchar(50)
+);
+
+create table Employees (
+    account varchar(50),
+    password varchar(50),
+    EP_No varchar(50)
+);
+
+create table Clocks (
+    EP_No varchar(50),
+    Clock_In datetime,
+    Clock_Out datetime
+);
+
+create table WorkOrders (
+    Order_ID varchar(50),
+    Auther varchar(50),
+    Worker varchar(50),
+    Content text,
+    Department_ID varchar(50),
+    OrderType_ID varchar(50),
+    Memo text
+);
+
+
+
+create table Department_Kind(
+    Department_ID varchar(50),
+    DepartmentName varchar(50)
+);
+
+
+insert into `Department_Kind` (Department_ID, DepartmentName) 
+values ('1','程式');
+
+insert into `Department_Kind` (Department_ID, DepartmentName) 
+values ('2','會計');
+
+insert into `Department_Kind` (Department_ID, DepartmentName) 
+values ('3','財務');
+
+insert into `Department_Kind` (Department_ID, DepartmentName) 
+values ('4','業務');
+
+
+
+create table OrdersType(
+    OrderType_ID varchar(50),
+    TypeName varchar(50)
+);
+
