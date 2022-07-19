@@ -6,22 +6,21 @@ define("DB_password","");
 define("DB_Database","Employee_database");
 
 
-$con = new mysqli(DB_HOST,DB_user,DB_password,DB_Database);
-
-
-if($con->connect_error) {
-    die($con->connect_error);
+try {
+    $pdo = new PDO("mysql:host=" . DB_HOST . ";port=;dbname=" . DB_Database, DB_user, DB_password);
+} catch( PDOException $e){
+    throw new PDOException($e->getMessage());
 }
 
 
-// $sql = "SELECT Department_ID, DepartmentName  FROM department_kind";
-// $result = $con->query($sql);
+$stmt  = $pdo->prepare("SELECT * FROM department_kind");
+$stmt->execute();
+$stmt = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// if($result->num_rows > 0){
-//     while($row = $result->fetch_assoc()){
-//         echo $row['DepartmentName'] . "<br/>";
-//     }
-// }
+var_dump($stmt);
+
+
+
 
 
 ?>
