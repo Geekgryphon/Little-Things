@@ -32,6 +32,11 @@ create table Clocks (
     Clock_Out datetime
 );
 
+create table EmployeeKind (
+    EmployeeKindID varchar(50),
+    KindName varchar(50)
+);
+
 create table WorkOrders (
     Order_ID varchar(50),
     Auther varchar(50),
