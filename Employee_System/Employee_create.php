@@ -13,35 +13,35 @@
 </head>
 <body>
     <?php 
-       if(isset($_POST['EmployeeKindID'])){
-            $sql = "SELECT 1 FROM EmployeeKind WHERE EmployeeKindID = ? ";
-            $arr = array($_POST['EmployeeKindID']);
+       if(isset($_POST['account'])){
+            $sql = "SELECT 1 FROM  Employees WHERE account = ? ";
+            $arr = array($_POST['account']);
             $search_query = $pdo->prepare($sql);
             $search_query->execute($arr);
 
             if($_POST['submit'] == '取消'){
-                header('Location: DepartmentKind_view.php');
+                header('Location: Employee_view.php');
             }
 
             if((int)$search_query->fetchColumn() > 0){
                 echo "<h3>已存在重複的資料，無法新增</h3>";
             }else{
-                $sql = " INSERT INTO EmployeeKind(EmployeeKindID, KindName) VALUES (?, ?) ";
-                $arr = array($_POST['EmployeeKindID'], $_POST['KindName']);
+                $sql = " INSERT INTO Employees(account, EP_No) VALUES (?, ?) ";
+                $arr = array($_POST['account'], $_POST['EPNo']);
                 $insert_query = $pdo->prepare($sql);
                 $insert_query->execute($arr);
-                header('Location: EmployeeKind_view.php');
+                header('Location: Employee_view.php');
             }
         }
     ?>
-    <form action="EmployeeKind_create.php" method="post">
-        <label for="EmployeeKindID">職員種類代碼:</label>
-        <input type="text" name="EmployeeKindID" id="EmployeeKindID">
+    <form action="Employee_create.php" method="post">
+        <label for="account">帳號:</label>
+        <input type="text" name="account" id="account">
         <br>
-        <label for="KindName">種類名稱:</label>
-        <input type="text" name="KindName" id="KindName">
+        <label for="EPNo">職員編號:</label>
+        <input type="text" name="EPNo" id="EPNo">
         <br>
-        <input type="submit" name="create" value="確定">
+        <input type="submit" name="submit" value="確定">
         <input type="submit" name="submit" value="取消">
     </form>
 </body>

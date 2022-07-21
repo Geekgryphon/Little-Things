@@ -19,6 +19,10 @@
             $search_query = $pdo->prepare($sql);
             $search_query->execute($arr);
 
+            if($_POST['submit'] == '取消'){
+                header('Location: DepartmentKind_view.php');
+            }
+
             if((int)$search_query->fetchColumn() > 0){
                 echo "<h3>已存在重複的資料，無法新增</h3>";
             }else{
@@ -37,7 +41,8 @@
         <label for="DepartmentName">部門名稱:</label>
         <input type="text" name="DepartmentName" id="DepartmentName">
         <br>
-        <input type="submit" name="create" value="確定">
+        <input type="submit" name="submit" value="確定">
+        <input type="submit" name="submit" value="取消">
     </form>
 </body>
 </html>

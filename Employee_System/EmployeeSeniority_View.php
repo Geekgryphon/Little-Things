@@ -24,14 +24,14 @@
         <tbody>
             <?php 
               $sql = " SELECT a.EP_NO, b.KindName, a.On_Day, a.Off_Day FROM EmployeeSeniority a 
-                       join EmployeeKind b on a.EmployeeKindID and b.EmployeeKindID ";
+                       join EmployeeKind b on a.EmployeeKindID = b.EmployeeKindID ";
               $search_query = $pdo->prepare($sql);
               $search_query->execute();
           
               while($row = $search_query->fetch(PDO::FETCH_ASSOC)){
                 echo "<tr>";
-                echo "<td> </td>";
-                echo "<td>" . $row['EP_No'] . "</td>";
+                echo "<td><a href='EmployeeSeniority_edit.php?EP_NO=" . $row['EP_NO'] . "'>編輯</a></td>";
+                echo "<td>" . $row['EP_NO'] . "</td>";
                 echo "<td>" . $row['KindName'] . "</td>";
                 echo "<td>" . $row['On_Day'] . "</td>";
                 echo "<td>" . $row['Off_Day'] . "</td>";

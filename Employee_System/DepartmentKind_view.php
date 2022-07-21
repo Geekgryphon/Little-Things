@@ -24,12 +24,14 @@
               $sql = " SELECT * FROM Department_Kind ";
               $search_query = $pdo->prepare($sql);
               $search_query->execute();
+              
           
               while($row = $search_query->fetch(PDO::FETCH_ASSOC)){
                 echo "<tr>";
-                echo "<td> </td>";
+                echo "<td><a href='DepartmentKind_edit.php?Department_ID=" . $row['Department_ID'] . "'>編輯</a></td>";
                 echo "<td>" . $row['Department_ID'] . "</td>";
                 echo "<td>" . $row['DepartmentName'] . "</td>";
+
                 echo "</tr>";
               }
             ?>

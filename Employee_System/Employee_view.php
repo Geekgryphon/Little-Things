@@ -27,7 +27,6 @@
           
               while($row = $search_query->fetch(PDO::FETCH_ASSOC)){
                 echo "<tr>";
-                echo "<td> </td>";
                 echo "<td>" . $row['account'] . "</td>";
                 echo "<td>" . $row['EP_No'] . "</td>";
                 echo "</tr>";

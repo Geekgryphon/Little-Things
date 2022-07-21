@@ -27,7 +27,7 @@
           
               while($row = $search_query->fetch(PDO::FETCH_ASSOC)){
                 echo "<tr>";
-                echo "<td> </td>";
+                echo "<td><a href='EmployeeKind_edit.php?EmployeeKindID=" . $row['EmployeeKindID'] . "'>編輯</a></td>";
                 echo "<td>" . $row['EmployeeKindID'] . "</td>";
                 echo "<td>" . $row['KindName'] . "</td>";
                 echo "</tr>";
