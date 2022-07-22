@@ -25,6 +25,8 @@
 
             if((int)$search_query->fetchColumn() > 0){
                 echo "<h3>已存在重複的資料，無法新增</h3>";
+            }else if($_POST['account'] == ''){
+                echo "<h3>未設定代碼無法新增</h3>";
             }else{
                 $sql = " INSERT INTO Employees(account, EP_No) VALUES (?, ?) ";
                 $arr = array($_POST['account'], $_POST['EPNo']);

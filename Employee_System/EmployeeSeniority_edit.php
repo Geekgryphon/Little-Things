@@ -13,44 +13,58 @@
 </head>
 <body>
     <?php 
-        $DepartmentID = "";
-        $DepartmentName = "";
 
-       if(isset($_GET['Department_ID'])){
+        $EP_NO = "";
+        $EmployeeKindID = "";
+        $On_Day = "";
+        $Off_Day = "";
 
-         $DepartmentID = $_GET['Department_ID'];
+       if(isset($_GET['EP_NO'])){
 
-         $sql = "SELECT DepartmentName FROM  Department_Kind WHERE Department_ID = ? ";
-         $arr = array($DepartmentID);
+         $EP_NO = $_GET['EP_NO'];
+         $EmployeeKindID = $_GET['EmployeeKindID'];
+
+         $sql = "SELECT On_Day, Off_Day  FROM  EmployeeSeniority WHERE EP_NO = ? and EmployeeKindID = ? ";
+         $arr = array($EP_NO, $EmployeeKindID);
          $search_query = $pdo->prepare($sql);
          $search_query->execute($arr);
-         $DepartmentName = $search_query->fetch()["DepartmentName"];
+
+         while($row = $search_query->fetch(PDO::FETCH_ASSOC)){
+            $On_Day = $row["On_Day"];
+            $Off_Day = $row["Off_Day"];
+          }
+
+         
 
        }
 
 
        if(isset($_POST['submit'])){
             if($_POST['submit'] == '確定'){
-                $sql = " UPDATE Department_Kind SET DepartmentName = ? WHERE Department_ID = ?  ";
-                $arr = array($_POST['DepartmentName'], $_POST['DepartmentID']);
+                $sql = " UPDATE EmployeeSeniority SET On_Day = ?, Off_Day = ? WHERE EP_NO = ? and EmployeeKindID = ?  ";
+                $arr = array($_POST['OnDay'], $_POST['OffDay'], $_POST['EPNO'], $_POST['EmployeeKindID']);
                 $update_query = $pdo->prepare($sql);
                 $update_query->execute($arr);
                 
-                header('Location: DepartmentKind_view.php');
+                header('Location: EmployeeSeniority_view.php');
 
             }else if($_POST['submit'] == '取消'){
-                header('Location: DepartmentKind_view.php');
+                header('Location: EmployeeSeniority_view.php');
             }
        }
        
     ?>
 
-    <form action="DepartmentKind_edit.php" method="post">
-        <label for="DepartmentID">部門代碼:</label>
-        <input type="text" name="DepartmentID" id="DepartmentID" value="<?php echo $DepartmentID; ?>" readonly>
+    <form action="EmployeeSeniority_edit.php" method="post">
+        <input type="hidden" name="EmployeeKindID" id="EmployeeKindID" value="<?php echo $EmployeeKindID; ?>">
+        <label for="EPNO">員工代碼:</label>
+        <input type="text" name="EPNO" id="EPNO" value="<?php echo $EP_NO; ?>" readonly>
         <br>
-        <label for="DepartmentName">部門名稱:</label>
-        <input type="text" name="DepartmentName" id="DepartmentName" value="<?php echo $DepartmentName; ?>">
+        <label for="DepartmentName">入職日期:</label>
+        <input type="date" name="OnDay" id="OnDay" value="<?php echo $On_Day; ?>">
+        <br>
+        <label for="DepartmentName">離職日期:</label>
+        <input type="date" name="OffDay" id="OffDay" value="<?php echo $Off_Day; ?>">
         <br>
         <input type="submit" name="submit" value="確定">
         <input type="submit" name="submit" value="取消">
